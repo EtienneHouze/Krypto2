@@ -5,7 +5,10 @@
 
 
 
-
+/**
+	Substraction of two decimal representations.
+	This method requires a > b
+*/
 std::vector<unsigned char> BigInt::minusDec(std::vector<unsigned char> a, std::vector<unsigned char> b)
 {
 	bool mem = false;
@@ -33,6 +36,11 @@ std::vector<unsigned char> BigInt::minusDec(std::vector<unsigned char> a, std::v
 	return rep;
 }
 
+
+/*
+	Addition of two decimal representations.
+
+*/
 std::vector<unsigned char> BigInt::plusDec(std::vector<unsigned char> a, std::vector<unsigned char> b)
 {
 	std::vector<unsigned char> aBis, bBis;
@@ -68,6 +76,9 @@ std::vector<unsigned char> BigInt::plusDec(std::vector<unsigned char> a, std::ve
 	return rep;
 }
 
+/*
+	Compares two decimal representations
+*/
 bool BigInt::isGreaterDec(const std::vector<unsigned char> a, const std::vector<unsigned char> b) {
 	int greatestNonZeroA = a.size() - 1;
 	while (greatestNonZeroA > -1) {

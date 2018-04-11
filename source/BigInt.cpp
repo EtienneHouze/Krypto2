@@ -1,16 +1,11 @@
 #include <string>
 #include <algorithm>
+#include <sstream>
 
 #include "BigInt.h"
 
 
-/**
 
-Substraction of two decimal representations.
-
-This method requires a > b
-
-*/
 
 std::vector<unsigned char> BigInt::minusDec(std::vector<unsigned char> a, std::vector<unsigned char> b)
 
@@ -60,13 +55,7 @@ std::vector<unsigned char> BigInt::minusDec(std::vector<unsigned char> a, std::v
 }
 
 
-/*
 
-Addition of two decimal representations.
-
-
-
-*/
 
 std::vector<unsigned char> BigInt::plusDec(std::vector<unsigned char> a, std::vector<unsigned char> b)
 
@@ -138,11 +127,7 @@ std::vector<unsigned char> BigInt::plusDec(std::vector<unsigned char> a, std::ve
 
 
 
-/*
 
-Compares two decimal representations
-
-*/
 
 bool BigInt::isGreaterDec(const std::vector<unsigned char> a, const std::vector<unsigned char> b) {
 
@@ -240,23 +225,73 @@ void BigInt::updateDecimal()
 
 BigInt::BigInt(std::string str)
 {
-
+	auto decInvert = std::vector<unsigned char>();
+	char buffer;
+	std::stringstream stream(str);
+	while (stream >> buffer) {
+		decInvert.push_back(buffer - '0');
+	}
+	decimal = std::vector<unsigned char>(decInvert.size());
+	for (int j = 0; j < decInvert.size(); j++)
+		decimal[decimal.size() - 1 - j] = decInvert[j];
+	updateBinary();
 }
 
 BigInt::BigInt(int i)
 {
-	decInvert = std::vector<unsigned char>();
+	std::vector<unsigned char> decInvert = std::vector<unsigned char>();
 	while (i > 0) {
 		decInvert.push_back((unsigned char)(i % 10));
 		i = i / 10;
 	}
-	decimal.revert();
+	decimal = std::vector<unsigned char>(decInvert.size());
+	for (int j = 0; j < decInvert.size(); j++)
+		decimal[j] = decInvert[j];
+	updateBinary();
 
 }
 
 BigInt BigInt::operator+(const BigInt & other) const
 {
-	return BigInt();
+	BigInt result = BigInt();
+	result.binary = std::list<bool>();
+	bool mem = false;
+	auto thisBin = this->binary;
+	auto otherBin = other.binary;
+	while ((!thisBin.empty()) && (!otherBin.empty())) {
+		result.binary.push_front(
+			(thisBin.back() && (!otherBin.back()) && (!mem))
+			|| (!(thisBin.back()) && otherBin.back() && (!mem))
+			|| ((!thisBin.back()) && (!otherBin.back()) && mem)
+			|| (thisBin.back() && otherBin.back() && mem)
+		);
+		mem = (
+			(thisBin.back() && otherBin.back())
+			|| (thisBin.back() && mem)
+			|| (otherBin.back() && mem)
+			);
+		thisBin.pop_back();
+		otherBin.pop_back();
+	}
+	while (!thisBin.empty()) {
+		result.binary.push_front(
+			(thisBin.back() && (!mem))
+			|| ((!thisBin.back()) && mem)
+		);
+		mem = mem && thisBin.back();
+		thisBin.pop_back();
+	}
+	while (!otherBin.empty()) {
+		result.binary.push_front(
+			(otherBin.back() && (!mem))
+			|| ((!otherBin.back()) && mem)
+		);
+		mem = mem && otherBin.back();
+		otherBin.pop_back();
+	}
+	if (mem)
+		result.binary.push_front(true);
+	return result;
 }
 
 BigInt BigInt::operator<<(const int i) const
@@ -283,12 +318,48 @@ BigInt BigInt::operator>>(const int i) const
 
 BigInt BigInt::operator*(const BigInt & other) const
 {
-	return BigInt();
+	BigInt result = BigInt(0);
+	BigInt temp = *this;
+	auto list = other.binary;
+	while (!list.empty()) {
+		if (list.back())
+			result = result + temp;
+		temp = temp << 1;
+		list.pop_back();
+	}
+	return result;
 }
 
 BigInt BigInt::operator-(const BigInt & other) const
 {
-	return BigInt();
+	BigInt result = BigInt();
+	result.binary = std::list<bool>();
+	auto thisBin = this->binary;
+	auto otherBin = other.binary;
+	bool mem = false;
+	while ((!thisBin.empty()) && (!otherBin.empty())) {
+		result.binary.push_front(
+			(thisBin.back() && otherBin.back() && mem)
+			|| ((!thisBin.back()) && otherBin.back() && (!mem))
+			|| ((!thisBin.back()) && (!otherBin.back()) && mem)
+			|| (thisBin.back() && (!otherBin.back()) && (!mem))
+		);
+		mem = (thisBin.back() && otherBin.back() && mem)
+			|| ((!thisBin.back()) && (otherBin.back() || mem));
+		thisBin.pop_back();
+		otherBin.pop_back();
+	}
+	while (!thisBin.empty()) {
+		result.binary.push_front(
+			((!thisBin.back()) && mem)
+			|| (thisBin.back() && !mem)
+		);
+		mem = (!thisBin.back()) && mem;
+		thisBin.pop_back();
+	}
+	while (!(result.binary.front()) && (!result.binary.empty()))
+		result.binary.pop_front();
+	return result;
 }
 
 BigInt& BigInt::operator=(const BigInt & other)

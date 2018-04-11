@@ -16,6 +16,9 @@ std::vector<bool> toBitArray(int a) {
 }
 
 int main(int argc, char** argv) {
-	BigInt test = BigInt();
+	BigInt test = BigInt("415678613855765135249686746521687");
+	BigInt test2 = BigInt("12387498765168746516587468546587");
+	BigInt result = test * test2;
+	//result = result << 1;
 	return 0;
 }

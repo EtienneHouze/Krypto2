@@ -22,10 +22,27 @@ private:
 
 public:
 	
+	/**
+
+	Substraction of two decimal representations.
+
+	This method requires a > b
+
+	*/
 	std::vector<unsigned char> minusDec(std::vector<unsigned char> a, std::vector<unsigned char> b);
+	/*
 
+	Addition of two decimal representations.
+
+
+
+	*/
 	std::vector<unsigned char> plusDec(std::vector<unsigned char> a, std::vector<unsigned char> b);
+	/*
 
+	Compares two decimal representations
+
+	*/
 	bool isGreaterDec(const std::vector<unsigned char> a, const std::vector<unsigned char> b);
 
 	BigInt();

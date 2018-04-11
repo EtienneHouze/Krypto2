@@ -1,60 +1,59 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <list>
 
+
+/*
+	A class to represent big positive integers. The operations are done using the binary representation, stored in a list of booleans.
+	However, a decimal representation is used to read from integers and print into strings.
+*/
 class BigInt
 {
 private:
-	// decimal representation of the number, with [0] being the least significant digit
-	std::vector<bool> binary;
-	//	binary representation of the number, with [0] being the least significant bit
-	std::vector<unsigned char> decimal;
 
-	// The following are helper internal methods.
+	std::vector<unsigned char> decimal; // Decimal representation of the number
 
-	// Substraction method. We presume here that a > b;
-	std::vector<unsigned char> minusDec(std::vector<unsigned char> a, std::vector<unsigned char> b);
-	// Decimal addition method
-	std::vector<unsigned char> plusDec(std::vector<unsigned char> a, std::vector<unsigned char> b);
-	// Checks which decimal is bigger
-	bool isGreaterDec(const std::vector<unsigned char> a,const std::vector<unsigned char> b);
+	std::list<bool> binary; // binary representation of the number. The head of the list is the most important bit.
 
-	std::vector<bool> plusBin(std::vector<bool>a, std::vector<bool>b);
+	void updateBinary(); // Creates the binary from the decimal.
 
-	std::vector<bool> minusBin(std::vector<bool>a, std::vector<bool>b);
-
-	std::vector<unsigned char> binToDec(std::vector<bool>a);
-
-	std::vector<bool> decToBin(std::vector<unsigned char>a);
+	void updateDecimal(); // Creates the decimal from the binary.
 
 public:
-	BigInt() {
-		binary = std::vector<bool>();
-		decimal = std::vector<unsigned char>();
-	}
+	
+	std::vector<unsigned char> minusDec(std::vector<unsigned char> a, std::vector<unsigned char> b);
+
+	std::vector<unsigned char> plusDec(std::vector<unsigned char> a, std::vector<unsigned char> b);
+
+	bool isGreaterDec(const std::vector<unsigned char> a, const std::vector<unsigned char> b);
+
+	BigInt();
 
 	BigInt(std::string str);
 
-	void parseString(std::string);
+	BigInt(int i);
 
-	std::string toStringDec();
+	BigInt operator+(const BigInt & other)const;
 
-	BigInt operator+(BigInt& other);
+	//BigInt operator%(const BigInt & other)const;
 
-	BigInt operator-(BigInt other);
+	BigInt operator<<(const int i)const; // Shift of bits -> result in multiplying by 2^i.
 
-	BigInt operator*(const BigInt& other)const;
+	BigInt operator>>(const int i)const;  // Shift of bits -> results in dividing by 2^i.
 
-	BigInt operator%(BigInt other);
+	BigInt operator*(const BigInt & other)const;
 
-	bool operator<( BigInt other);
+	BigInt operator-(const BigInt & other)const;
 
-	BigInt& operator=(BigInt other);
+	BigInt& operator=(const BigInt& other);
 
-	bool operator==(BigInt other);
+	bool operator<(const BigInt& other)const;
 
-	static BigInt modexp(BigInt a, BigInt b, BigInt n);
+	bool operator==(const BigInt& other)const;
 
-	~BigInt();
+	std::string toString();
+
+	~BigInt() {};
 };
 

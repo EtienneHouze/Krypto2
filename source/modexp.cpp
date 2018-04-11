@@ -16,16 +16,6 @@ std::vector<bool> toBitArray(int a) {
 }
 
 int main(int argc, char** argv) {
-	std::string line;
-	std::string strA, strB, strN;
-	while (std::getline(std::cin, line)) {
-		std::stringstream ss(line);
-		ss >> strA >> strB >> strN;
-		BigInt a = BigInt(strA);
-		BigInt b = BigInt(strB);
-		BigInt n = BigInt(strN);
-		BigInt res = BigInt::modexp(a, b, n);
-		std::cout << res.toStringDec() << std::endl;
-	}
+	BigInt test = BigInt();
 	return 0;
 }

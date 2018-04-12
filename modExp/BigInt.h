@@ -16,12 +16,12 @@ private:
 
 	std::list<bool> binary; // binary representation of the number. The head of the list is the most important bit.
 
-	void updateBinary(); // Creates the binary from the decimal.
-
-	void updateDecimal(); // Creates the decimal from the binary.
 
 public:
 	
+	void updateBinary(); // Creates the binary from the decimal.
+
+	void updateDecimal(); // Creates the decimal from the binary.
 	/**
 
 	Substraction of two decimal representations.

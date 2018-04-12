@@ -51,13 +51,19 @@ BigInt Modulator::plus(BigInt a, BigInt b)
 BigInt Modulator::exponentiation(BigInt a, BigInt b)
 {
 	auto list = b.getBinary();
+	auto temps = std::list<BigInt>();
 	BigInt result = BigInt(1);
 	BigInt temp = a;
 	while (!list.empty()) {
 		if (list.back()) {
-			result = multiplication(result, temp);
+			temps.push_back(temp);
 		}
 		temp = multiplication(temp, temp);
+		list.pop_back();
+	}
+	while (!temps.empty()) {
+		result = multiplication(result,temps.back());
+		temps.pop_back();
 	}
 	return result;
 }

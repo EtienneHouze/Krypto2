@@ -219,8 +219,21 @@ void BigInt::updateBinary()
 
 void BigInt::updateDecimal()
 {
-
+	decimal = std::vector<unsigned char>();
+	std::vector<unsigned char> powerOfTwo = std::vector<unsigned char>();
+	powerOfTwo.push_back(1);
+	auto list = binary;
+	while (!list.empty()) {
+		if (list.back())
+			decimal = plusDec(decimal, powerOfTwo);
+		powerOfTwo = plusDec(powerOfTwo, powerOfTwo);
+		list.pop_back();
+	}
+	if (decimal.size() == 0) {
+		decimal.push_back(0);
+	}
 }
+
 
 
 BigInt::BigInt(std::string str)
@@ -397,5 +410,9 @@ bool BigInt::operator==(const BigInt & other) const
 
 std::string BigInt::toString()
 {
-	return std::string();
+	std::string result = std::string();
+	for (int i = decimal.size() - 1; i > -1; i--) {
+		result.push_back(decimal[i] + '0');
+	}
+	return result;
 }

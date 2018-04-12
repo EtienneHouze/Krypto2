@@ -1,0 +1,259 @@
+\documentclass[11pt,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{url}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[a4paper,margin=2.5cm,hmarginratio=1:1]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% ENTER YOUR PERSONAL INFORMATION HERE %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The info of your group members. Set Y and Z empty if you are not
+% three.
+
+% THIS FIRST ONE IS YOU.
+\newcommand{\persnrX}{941212-T437}
+\newcommand{\nameX}{\'Etienne}
+\newcommand{\familynameX}{Houz\'e}
+\newcommand{\emailX}{houze@kth.se}
+
+% THE OTHER TWO ARE PEOPLE YOU HAVE DISCUSSED INFORMALLY WITH.
+\newcommand{\persnrY}{123456-7890}
+\newcommand{\nameY}{Mohammad}
+\newcommand{\familynameY}{Al-Khwarizmi}
+\newcommand{\emailY}{mohammad@alkhwarizmi.hi}
+
+\newcommand{\persnrZ}{123456-7890}
+\newcommand{\nameZ}{Ada}
+\newcommand{\familynameZ}{Lovelace}
+\newcommand{\emailZ}{ada@lovelace.hi}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% DO NOT TOUCH ANYTHING BELOW THIS LINE %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{problem}
+\renewcommand\theproblem{\arabic{problem}}
+\newenvironment{problem}{%
+  \bigbreak
+  \refstepcounter{problem}\noindent
+  \llap{\textbf{\theproblem}\quad}\ignorespaces
+}{%
+  \par\if@nadaten@solutions\relax\else\filbreak\fi
+}
+\newenvironment{problem*}{%
+  \bigbreak
+  \refstepcounter{problem}\noindent
+  \llap{\textbf{\theproblem}\quad}\ignorespaces
+}{%
+  \par
+}
+\newcounter{subproblem}[problem]
+\renewcommand{\thesubproblem}{\arabic{problem}\alph{subproblem}}
+\newenvironment{subproblem}{%
+  \refstepcounter{subproblem}%
+  \list{}{}%
+  \item\leavevmode
+  \llap{\hbox to \leftmargini{\textbf{\thesubproblem}\hfil}}%
+  \ignorespaces
+}{%
+  \endlist\if@nadaten@solutions\relax\else\filbreak\fi
+}
+\newenvironment{subproblem*}{%
+  \refstepcounter{subproblem}%
+  \list{}{}%
+  \item\leavevmode
+  \llap{\hbox to \leftmargini{\textbf{\thesubproblem}\hfil}}%
+  \ignorespaces
+}{%
+  \endlist
+}
+
+\newcommand{\homeworknr}{II}
+\newcommand{\homework}{Homework~\homeworknr}
+\newcommand{\coursenumber}{DD2448}
+\newcommand{\coursename}{\coursenumber~Foundations of cryptography}
+\newcommand{\coursenick}{krypto18}
+
+\lhead[\familynameX~\familynameY~\familynameZ]{\coursename}
+\chead{}
+\rhead[\coursename]{\familynameX~\familynameY~\familynameZ}
+\lfoot[\thepage~(\pageref{LastPage})]{}
+\cfoot{}
+\rfoot[]{\thepage~(\pageref{LastPage})}
+
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+   \fancyfoot[R]{\thepage~(\pageref{LastPage})}
+}
+
+\renewcommand{\headrulewidth}{0pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% HERE YOU CAN ADD YOUR OWN MACROS AND ENVIRONMENTS IN THE PREAMBLE %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Add your macros here.
+
+\newcommand{\TPOINTS}[1]{(#1T)}
+\newcommand{\IPOINTS}[1]{(#1I)}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% THE FOLLOWING GENERATES THE HEADER %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% DO NOT TOUCH THIS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\thispagestyle{firststyle}
+
+\noindent
+\hspace{0.3cm}{\huge\textbf{\coursename}}
+
+\noindent
+\rule{\textwidth}{1pt}
+
+\noindent
+\begin{tabularx}{\textwidth}{X|lll}
+  & \textbf{Persnr} & \textbf{Name} & \textbf{Email} \\
+\cline{2-4}
+&\\[-0.3cm]
+  \multirow{2}{*}{\textbf{\huge\homework}} & {\small\textbf{\persnrX}} & {\small\textbf{\nameX}} & {\small\textbf{\emailX}} \\
+  & & {\small\textbf{\familynameX}} & \\
+\cline{2-4}
+  \multirow{2}{*}{\textbf{\huge\coursenick}} & {\small\persnrY} & {\small\nameY} & {\small\emailY} \\
+  & & {\small\familynameY} & \\
+  & {\small\persnrZ} & {\small\nameZ} & {\small\emailZ} \\
+  & & {\small\familynameZ} & \\
+&\\
+[-0.2cm]
+\end{tabularx}
+
+\vspace{0.2cm}
+\noindent
+\rule{\textwidth}{1pt}
+
+\vspace{0.5cm}
+
+\pagestyle{fancy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% YOUR SOLUTIONS START HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                       %%
+%%  Do NOT remove any problem-, or subproblem environments, or nominal   %%
+%%  ponts below. If you can not solve a problem, then you MUST simply    %%
+%%  leave the "NOT SOLVED" string intact. This ensures that the          %%
+%%  numbering is correct and it simplifies grading, leaving more time    %%
+%%  to prepare lectures and help students.                               %%
+%%                                                                       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+  \TPOINTS{2} SOLVED
+  
+  A proof by reduction is a means of proving that a cryptographic system is secrue. This proof is vastly inspired by the problem reduction often used in complexity theory. It conssists of finding a problem $\mathcal{P}$ which is proved to be hard to solve, and reduce the breaking of the cryptosystem to the resolution of $\mathcal{P}$. Reducing the cryptosystem to $\mathbb{P}$ means that solving the cryptosystem implies solving an instance of $\mathcal{P}$. Thus, if the cryptosystem is easy to solve, then $\mathcal{P}$ should also be easy to solve. Since we know that $\mathcal{P}$ is hard, then we have proved that the cryptosytem is at least as hard to solve.
+\end{problem}
+
+\begin{problem}
+  \begin{subproblem}
+    \TPOINTS{2} SOLVED
+    
+    The definition of a negligible fucntion is : "a function $\epsilon : \mathbb{N} \rightarrow \mathbb{R}$ is negligible if and only if for every integer $c$ there exists a rank $n_c$ such that $\forall n > n_c, \epsilon(n) < \frac{1}{n^c}$ ". This implies that any negligble function tends to zero as $n$ tends to infinity.
+    
+    Moreover, let $l$ be a polynomial function and let us call $d$ its degree ($d$ is finite). Let us prove that $l\times \epsilon$ is negligible.
+    
+    Let $c$ be an integer. Since $\epsilon$ is negligible, we know that there exists a rank $n_0$ such that for all $n > n_0$ we have $\epsilon(n) < n^{-c-d}$. Then we have for all $n > n_0$ : $ l(n) \times \epsilon(n) = Kn^{-c}$, where $K$ is greater than the sum of all coefficients of $l$. Then there exists a rank $n_1$ such that, for all $n > n_1$ we finally have $l(n) \ times \epsilon{n} < n^{-c}$. So by definition, $l\times \epsilon$ is negligible.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{1} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{2} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+\end{problem}
+
+\begin{problem}
+  \begin{subproblem}
+    \TPOINTS{1} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{1} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{1} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{1} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{2} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{2} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+\end{problem}
+
+\begin{problem}
+  \begin{subproblem}
+    \TPOINTS{2} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{1} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{3} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+\end{problem}
+
+\begin{problem}
+  \begin{subproblem}
+    \TPOINTS{7} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{3} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+\end{problem}
+
+\begin{problem}
+  \begin{subproblem}
+    \TPOINTS{4} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+  \begin{subproblem}
+    \TPOINTS{2} NOT SOLVED % We leave this place holder here for improved readability.
+  \end{subproblem}
+\end{problem}
+
+\begin{problem}
+  \IPOINTS{4} NOT SOLVED % We leave this place holder here for improved readability.
+\end{problem}
+
+\begin{problem}
+  \IPOINTS{3} NOT SOLVED % We leave this place holder here for improved readability.
+\end{problem}
+
+\begin{problem}
+  \IPOINTS{4} NOT SOLVED % We leave this place holder here for improved readability.
+\end{problem}
+
+\begin{problem}
+  \IPOINTS{2} NOT SOLVED % We leave this place holder here for improved readability.
+\end{problem}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -65,6 +65,11 @@ public:
 
 	BigInt& operator=(const BigInt& other);
 
+	std::list<bool> getBinary() {
+		return binary;
+	}
+
+
 	bool operator<(const BigInt& other)const;
 
 	bool operator==(const BigInt& other)const;

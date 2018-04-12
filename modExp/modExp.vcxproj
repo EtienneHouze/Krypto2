@@ -121,11 +121,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\BigInt.cpp" />
-    <ClCompile Include="..\source\modexp.cpp" />
+    <ClCompile Include="BigInt.cpp" />
+    <ClCompile Include="modexp.cpp" />
+    <ClCompile Include="Modulator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\source\BigInt.h" />
+    <ClInclude Include="BigInt.h" />
+    <ClInclude Include="Modulator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
